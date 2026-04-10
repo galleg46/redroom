@@ -2,9 +2,9 @@ namespace backend.models;
 
 public class AgreementResponse
 {
-    string id { get; set; }
-    string firstName { get; set; }
-    string email { get; set; } 
+    public string id { get; set; }
+    public string firstName { get; set; }
+    public string email { get; set; } 
     
     public AgreementResponse () {}
     
