@@ -18,11 +18,12 @@ public class WaiverController : ControllerBase
     
     
     [HttpPost]
-    public ActionResult CreateAgreement([FromBody] EventAttendee attendee)
+    public ActionResult<AgreementResponse> CreateAgreement([FromBody] EventAttendee attendee)
     {
         try
         {
-            AgreementResponse response = _waiverService.CreateAgreement();
+            var response = _waiverService.CreateAgreement(attendee);
+            
             return Accepted(response);
         }
         catch (AgreementCreationException e)
