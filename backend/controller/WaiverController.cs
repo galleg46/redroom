@@ -18,11 +18,11 @@ public class WaiverController : ControllerBase
     
     
     [HttpPost]
-    public ActionResult<AgreementResponse> CreateAgreement([FromBody] EventAttendee attendee)
+    public async Task<ActionResult<AgreementResponse>> CreateAgreement([FromBody] EventAttendee attendee)
     {
         try
         {
-            var response = _waiverService.CreateAgreement(attendee);
+            var response = await _waiverService.CreateAgreement(attendee);
             
             return Accepted(response);
         }

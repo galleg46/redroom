@@ -4,5 +4,5 @@ namespace backend.interfaces;
 
 public interface IWaiverService
 {
-    AgreementResponse CreateAgreement(EventAttendee attendee);
+    Task<AgreementResponse> CreateAgreement(EventAttendee attendee);
 }
