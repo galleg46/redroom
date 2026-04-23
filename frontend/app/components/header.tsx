@@ -11,11 +11,11 @@ export default function Header() {
         {name: 'Home', link: '/'},
         {name: 'Events', link: '/events'},
         {name: 'About Us', link: '/about'},
-        {name: 'Wavier', link: '/wavier'},
+        {name: 'Waiver', link: '/waiver'},
     ];
 
     return (
-        <header className="top-0 z-50">
+        <header className="bg-black top-0 z-50">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
 
                 {/* TOP ROW */}
