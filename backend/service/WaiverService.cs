@@ -21,14 +21,11 @@ public class WaiverService : IWaiverService
             throw new AgreementCreationException("The required information is missing");
         }
         
-        //temp code
-        EventAttendee newRecord = new EventAttendee("1", attendee.FirstName, attendee.LastName, attendee.Email,
-                                                        attendee.PhoneNumber);
-        _dbContext.EventAttendees.Add(newRecord);
+        _dbContext.EventAttendees.Add(attendee);
         await _dbContext.SaveChangesAsync();
         
         //temp response
-        return new AgreementResponse(newRecord.Id, newRecord.FirstName, newRecord.Email);
+        return new AgreementResponse(attendee.Id, attendee.FirstName, attendee.Email);
     }
 
     private static bool IsAttendeeInfoComplete(EventAttendee attendee)
