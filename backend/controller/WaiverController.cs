@@ -30,10 +30,11 @@ public class WaiverController : ControllerBase
         {
             return  BadRequest(e.Message);
         }
-        
+        catch (DuplicateEmailException e)
+        {
+            return Conflict(e.Message);
+        }
     }
-    
-    
     
     [HttpGet("ping")]
     public string Ping()
