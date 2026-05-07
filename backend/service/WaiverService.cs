@@ -2,6 +2,8 @@ using backend.dbcontext;
 using backend.exceptions;
 using backend.interfaces;
 using backend.models;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace backend.service;
 
@@ -16,19 +18,24 @@ public class WaiverService : IWaiverService
     
     public async Task<AgreementResponse> CreateAgreement(EventAttendee attendee)
     {
-        if (!IsAttendeeInfoComplete(attendee))
+        try
         {
-            throw new AgreementCreationException("The required information is missing");
+            if (!IsAttendeeInfoComplete(attendee))
+            {
+                throw new AgreementCreationException("The required information is missing");
+            }
+            
+            _dbContext.EventAttendees.Add(attendee);
+            await _dbContext.SaveChangesAsync();
+            
+            return new AgreementResponse(attendee.Id, attendee.FirstName, attendee.Email);
         }
-        
-        //temp code
-        EventAttendee newRecord = new EventAttendee("1", attendee.FirstName, attendee.LastName, attendee.Email,
-                                                        attendee.PhoneNumber);
-        _dbContext.EventAttendees.Add(newRecord);
-        await _dbContext.SaveChangesAsync();
-        
-        //temp response
-        return new AgreementResponse(newRecord.Id, newRecord.FirstName, newRecord.Email);
+        catch (DbUpdateException e) when(
+            e.InnerException is PostgresException pgE && 
+            pgE.SqlState == PostgresErrorCodes.UniqueViolation)
+        {
+            throw new DuplicateEmailException(attendee.FirstName +" " +attendee.LastName +" has already completed the waiver.");
+        }
     }
 
     private static bool IsAttendeeInfoComplete(EventAttendee attendee)
