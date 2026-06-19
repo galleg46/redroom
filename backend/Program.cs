@@ -10,6 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IWaiverService, WaiverService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddCors(options =>
 {
