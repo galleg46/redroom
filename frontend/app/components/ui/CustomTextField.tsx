@@ -22,4 +22,10 @@ export const CustomTextField = styled(TextField)({
     "& .MuiInput-underline:after": {
         borderBottomColor: "#B2BAC2",
     },
+
+    "& .MuiOutlinedInput-root": {
+        "&:hover fieldset": {
+            borderColor: "#aaa"
+        }
+    }
 });
