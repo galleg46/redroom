@@ -9,7 +9,7 @@ import { CustomTextField } from "@/app/components/ui/CustomTextField";
 import {Alert, Checkbox, FormControl, FormControlLabel, IconButton, Snackbar} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const schema = z.object({
+const waiverSchema = z.object({
     firstName: z.string().min(1, "First Name is required"),
     lastName: z.string().min(1, "Last Name is required"),
     email: z
@@ -52,7 +52,7 @@ export default function Page() {
         watch,
         formState: { errors },
     } = useForm({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(waiverSchema),
         defaultValues: {
             firstName: "",
             lastName: "",
