@@ -40,21 +40,20 @@ export default function Header() {
 
                 {/* MOBILE SOCIALS */}
                 <div className="flex items-center gap-4 mt-4 md:hidden">
-                    <Link href="">
+                    <Link href="https://soundcloud.com/red-room-415516372" target="_blank">
                         <Image
                             src="/img-assets/SoundCloudIcon.webp"
                             alt="SoundCloud"
                             width={48}
                             height={48}
-                            className="hover:text-red-700 transition-colors duration-200 ease-in-out"
                         />
                     </Link>
 
-                    <Link href="https://www.instagram.com/red_room_ofc/">
+                    <Link href="https://www.instagram.com/red_room_ofc/" target="_blank">
                         <InstagramIcon fontSize="large" />
                     </Link>
 
-                    <Link href="">
+                    <Link href="https://www.facebook.com/profile.php?id=61586603220129" target="_blank">
                         <FacebookIcon fontSize="large" />
                     </Link>
                 </div>
@@ -73,7 +72,7 @@ export default function Header() {
 
                     {/* DESKTOP SOCIALS */}
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-4">
-                        <Link href="">
+                        <Link href="https://soundcloud.com/red-room-415516372" target="_blank">
                             <Image
                                 src="/img-assets/SoundCloudIcon.webp"
                                 alt="SoundCloud"
@@ -82,11 +81,11 @@ export default function Header() {
                             />
                         </Link>
 
-                        <Link href="https://www.instagram.com/red_room_ofc/">
+                        <Link href="https://www.instagram.com/red_room_ofc/" target="_blank">
                             <InstagramIcon fontSize="large" />
                         </Link>
 
-                        <Link href="">
+                        <Link href="https://www.facebook.com/profile.php?id=61586603220129" target="_blank">
                             <FacebookIcon fontSize="large" />
                         </Link>
                     </div>
