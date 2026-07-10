@@ -1,13 +1,14 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomButton } from "@/app/components/ui/CustomButton";
 import { CustomTextField } from "@/app/components/ui/CustomTextField";
-import {Alert, Checkbox, FormControl, FormControlLabel, IconButton, Snackbar} from "@mui/material";
+import {Alert, Checkbox, FormControl, FormControlLabel, IconButton, Paper, Snackbar} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ReactMarkdown from "react-markdown";
 
 const waiverSchema = z.object({
     firstName: z.string().min(1, "First Name is required"),
@@ -63,6 +64,7 @@ export default function Page() {
 
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [markdown, setMarkdown] = useState("");
 
     const [alertSeverity, setAlertSeverity] = useState<
         "success" | "error" | "warning" | "info"
@@ -155,11 +157,17 @@ export default function Page() {
         }
     };
 
+    useEffect(() => {
+        fetch("/documents/waiver.md")
+            .then((res) => res.text())
+            .then(setMarkdown);
+    }, [])
+
     return (
         <div className="bg-black flex min-h-screen flex-col p-6">
 
             <h1 className="text-center text-4xl pb-3">
-                Attendee Agreement
+                Event Attendee Agreement & Liability Waiver
             </h1>
 
             <Snackbar open={open}
@@ -187,19 +195,17 @@ export default function Page() {
                 </Alert>
             </Snackbar>
 
-            <div className="ml-16 mr-16">
-                <p className="text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales tempor est, sed mollis orci congue a. Suspendisse molestie quam sit amet aliquam porta. Ut quis tincidunt felis, at tristique risus. Quisque hendrerit et libero vitae tincidunt. Etiam aliquam dolor ipsum, eget imperdiet metus fringilla in. Vestibulum hendrerit, orci varius dictum interdum, augue elit elementum sapien, bibendum aliquam ex est sed felis. Cras vel sodales arcu. Ut scelerisque elit in lorem accumsan auctor. Suspendisse potenti. Vivamus vel eros non ipsum malesuada dictum vel vitae arcu. Pellentesque eu enim elit. Vestibulum dictum neque non dolor porta, ornare rutrum mauris varius. Morbi fermentum nibh sed dolor pellentesque tristique. Duis dapibus velit ac velit aliquam pretium. Morbi vel risus maximus libero congue vestibulum. Nam sit amet orci ac ipsum auctor tristique.
-
-                    Duis dui nulla, sodales vitae magna eget, ullamcorper molestie lorem. Curabitur facilisis massa bibendum neque varius consectetur. Sed eget enim egestas, tempus libero non, fermentum est. Donec vel mauris erat. Nullam fermentum pharetra scelerisque. Integer tortor enim, aliquet quis lectus id, feugiat bibendum risus. Sed gravida felis dui, sit amet pellentesque turpis aliquet sed. Duis porta velit erat, at ultrices velit eleifend et. Duis faucibus diam et neque lacinia consequat. Suspendisse potenti.
-
-                    Maecenas nibh tellus, tempus non enim eget, vestibulum imperdiet justo. Nunc velit ipsum, varius non interdum at, molestie at dolor. Maecenas facilisis augue maximus nulla blandit ultricies. Curabitur erat turpis, sagittis non nisl id, posuere porta metus. Aliquam erat volutpat. Ut vel magna nulla. Donec convallis lorem ut tellus aliquet, eu porttitor mi sagittis. Curabitur pharetra tortor in leo sodales vulputate a interdum libero. Ut varius augue lectus, sit amet consectetur metus tristique eu. Nulla et pellentesque nunc, eu porttitor urna. Aenean dignissim, eros nec volutpat iaculis, urna quam hendrerit turpis, at efficitur mi ante a quam. Nam pretium ante vitae metus gravida, a commodo magna fermentum. Curabitur ac tincidunt dui. Nulla felis velit, tristique sit amet eros vel, sodales rhoncus nibh. Praesent dignissim luctus mollis. Aenean ac gravida nibh, id malesuada felis.
-
-                    Phasellus sit amet ultricies quam, a euismod est. Etiam malesuada, justo sed consectetur faucibus, felis nisi faucibus neque, vel bibendum augue ante id nibh. Suspendisse luctus libero sed bibendum rhoncus. Quisque ut condimentum velit. Proin dapibus nisi at tempor elementum. Vivamus rhoncus aliquet sapien, laoreet laoreet orci tincidunt pharetra. Vestibulum vulputate posuere nulla, in euismod urna. Praesent congue ipsum ut ipsum facilisis, vel mollis mauris feugiat. Aenean dolor sapien, interdum vitae diam molestie, tempus vehicula dolor. Aenean a vestibulum erat. Phasellus rhoncus nunc mi, eu scelerisque ante congue nec.
-
-                    Integer varius diam nec maximus sollicitudin. Proin neque tellus, imperdiet quis auctor id, elementum nec diam. Nulla elementum lacus a quam rhoncus, venenatis rutrum libero hendrerit. Donec ac risus odio. Duis rutrum neque nec velit sodales pretium. Vestibulum fringilla sodales finibus. Nunc commodo pretium egestas. Sed quis maximus dui, vel cursus dolor. Quisque porta volutpat urna, eu bibendum magna imperdiet lacinia. Suspendisse in mollis lacus, id sagittis elit. Fusce sit amet tortor eleifend, ullamcorper sapien et, fringilla turpis. Sed orci orci, euismod sit amet malesuada vel, tempor in massa.
-                </p>
-            </div>
+            <Paper
+                elevation={8}
+                sx={{ bgcolor: "black", color: "white" }}
+                className=" rounded-lg p-4 md:p-8"
+            >
+                <div className="waiver-scroll h-125 overflow-y-auto rounded-md border border-gray-800 p-4 md:p-6">
+                    <div className="markdown-content max-w-4xl mx-auto px-4 md:px-8 lg:px-12">
+                        <ReactMarkdown>{markdown}</ReactMarkdown>
+                    </div>
+                </div>
+            </Paper>
 
             <div className="flex items-center justify-center p-5">
                 <FormControl error={!!errors.agreement}>
