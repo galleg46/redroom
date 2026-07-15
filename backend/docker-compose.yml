@@ -4,7 +4,7 @@ services:
     container_name: redroom-db
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
+      - POSTGRES_PASSWORD=rrUser
       - POSTGRES_DB=
     ports:
       - "5432:5432"
