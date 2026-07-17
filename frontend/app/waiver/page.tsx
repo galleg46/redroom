@@ -65,7 +65,7 @@ export default function Page() {
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [markdown, setMarkdown] = useState("");
-    const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
     const [alertSeverity, setAlertSeverity] = useState<
         "success" | "error" | "warning" | "info"
