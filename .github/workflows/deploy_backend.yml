@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - "backend/**"
-      - ".github/workflows/deploy_redroom-backend-prod.yml"
+      - ".github/workflows/deploy_backend.yml"
 
   workflow_dispatch:
 
