@@ -3,9 +3,9 @@ services:
     image: postgres:15
     container_name: redroom-db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=rrUser
-      - POSTGRES_DB=
+      - POSTGRES_USER=redroomuser
+      - POSTGRES_PASSWORD=localpass
+      - POSTGRES_DB=redroom-db
     ports:
       - "5432:5432"
     volumes:
