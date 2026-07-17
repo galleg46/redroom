@@ -77,6 +77,7 @@ export default function Page() {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertSeverity, setAlertSeverity] = useState<"success" | "error" | "warning" | "info">("info");
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+    const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
     useEffect(() => {
         loadEvents();
@@ -193,7 +194,7 @@ export default function Page() {
         formData.append("flyer", newEvent.flyer);
 
         try {
-            const response = await fetch("http://localhost:5294/events", {
+            const response = await fetch(`${API_URL}/events`, {
                 method: "POST",
                 body: formData
             });
@@ -255,7 +256,7 @@ export default function Page() {
 
     const deleteEvent = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:5294/events/${id}`, {
+            const response = await fetch(`${API_URL}/events/${id}`, {
                 method: "DELETE"
             });
 
@@ -341,7 +342,7 @@ export default function Page() {
         }
 
         try {
-            const response = await fetch(`http://localhost:5294/events/${editingEvent.id}`, {
+            const response = await fetch(`${API_URL}/events/${editingEvent.id}`, {
                 method: "PUT",
                 body: formData
             });

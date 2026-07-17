@@ -1,6 +1,6 @@
 import { EventResponse } from "@/app/models/EventResponse";
 
-const API_URL = "http://localhost:5294";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export async function getAllEvents(): Promise<EventResponse[]> {
     const response = await fetch(`${API_URL}/events`);
