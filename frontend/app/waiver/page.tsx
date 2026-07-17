@@ -65,6 +65,7 @@ export default function Page() {
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [markdown, setMarkdown] = useState("");
+    const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
     const [alertSeverity, setAlertSeverity] = useState<
         "success" | "error" | "warning" | "info"
@@ -89,7 +90,7 @@ export default function Page() {
 
         try {
 
-            const response = await fetch("http://localhost:5294/waiver", {
+            const response = await fetch(`${API_URL}/waiver`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
