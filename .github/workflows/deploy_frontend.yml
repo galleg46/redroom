@@ -1,0 +1,48 @@
+name: Deploy Red Room Frontend
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy_frontend.yml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  IMAGE_NAME: red-room-frontend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      ##################################################
+      #                  AZURE LOGIN
+      ##################################################
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      ##################################################
+      #             BUILD & DEPLOY TO ACR
+      ##################################################
+
+      - name: Build and Push Docker Image
+        run: |
+          az acr build --registry ${{ vars.AZURE_ACR_NAME }} --image $IMAGE_NAME:${{ github.sha }} --image $IMAGE_NAME:latest --build-arg NEXT_PUBLIC_API_URL-${{ vars.NEXT_PUBLIC_API_URL }} frontend
+
+      - name: Deploy Container App
+        run: |
+          az containerapp update --name $${{ vars.AZURE_FRONTEND_CONTAINTER_APP }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
