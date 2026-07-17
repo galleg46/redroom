@@ -36,7 +36,7 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Login to ACR
-        run: az acr login -- ${{ vars.AZURE_ACR_NAME }}
+        run: az acr login --name ${{ vars.AZURE_ACR_NAME }}
 
       ##################################################
       #             BUILD & DEPLOY TO ACR
