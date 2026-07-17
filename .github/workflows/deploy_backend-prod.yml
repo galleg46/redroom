@@ -32,7 +32,7 @@ jobs:
           dotnet-version: 9.0.x
 
       ##################################################
-      #      Dotnet restore, build, and migrations
+      #              DOTNET EF MIGRATIONS
       ##################################################
           
       - name: Restore
