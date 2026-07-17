@@ -54,7 +54,7 @@ jobs:
           dotnet ef database update
 
       ##################################################
-      #                  AZURE LOGIN
+      #               AZURE & ACR LOGIN
       ##################################################
       
       - name: Login to Azure
@@ -64,13 +64,20 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Login to ACR
+        run: az acr login --name ${{ vars.AZURE_ACR_NAME }}
+
       ##################################################
-      #           ACR BUILD & DEPLOY IMAGE
+      #             BUILD & DEPLOY TO ACR
       ##################################################    
 
-      - name: Build and Push Docker Image
+      - name: Build Image
         run: |
-          az acr build --registry ${{ vars.AZURE_ACR_NAME }} --image $IMAGE_NAME:${{ github.sha }} --image $IMAGE_NAME:latest backend
+          docker build -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} backend
+
+      - name: Push Image
+        run: |
+          docker push ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
 
       - name: Deploy Container App
         run: |
