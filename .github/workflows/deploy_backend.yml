@@ -73,7 +73,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} backend
+          docker build -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} .
 
       - name: Push Image
         run: |
@@ -81,4 +81,4 @@ jobs:
 
       - name: Deploy Container App
         run: |
-          az containerapp update --name ${{ vars.AZURE_BACKEND_CONTAINER_APP }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:&{{ github.sha }}
+          az containerapp update --name ${{ vars.AZURE_BACKEND_CONTAINER_APP }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
