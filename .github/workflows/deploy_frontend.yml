@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       ##################################################
-      #                  AZURE LOGIN
+      #               AZURE & ACR LOGIN
       ##################################################
 
       - name: Login to Azure
@@ -35,14 +35,21 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Login to ACR
+        run: az acr login -- ${{ vars.AZURE_ACR_NAME }}
+
       ##################################################
       #             BUILD & DEPLOY TO ACR
       ##################################################
 
-      - name: Build and Push Docker Image
+      - name: Build Image
         run: |
-          az acr build --registry ${{ vars.AZURE_ACR_NAME }} --image $IMAGE_NAME:${{ github.sha }} --image $IMAGE_NAME:latest --build-arg NEXT_PUBLIC_API_URL-${{ vars.NEXT_PUBLIC_API_URL }} frontend
+          docker build --build-arg NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} frontend
+
+      - name: Push Image
+        run: |
+          docker push ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
 
       - name: Deploy Container App
         run: |
-          az containerapp update --name $${{ vars.AZURE_FRONTEND_CONTAINTER_APP }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
+          az containerapp update --name red-room-frontend --resource-group red-room --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }}
