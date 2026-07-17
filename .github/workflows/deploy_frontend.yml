@@ -19,6 +19,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - name: Checkout
@@ -44,7 +47,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build --build-arg NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} frontend
+          docker build --build-arg NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} -t ${{ vars.AZURE_ACR_NAME }}.azurecr.io/$IMAGE_NAME:${{ github.sha }} .
 
       - name: Push Image
         run: |
