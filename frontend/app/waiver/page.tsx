@@ -165,7 +165,7 @@ export default function Page() {
     }, [])
 
     return (
-        <div className="bg-black flex min-h-screen flex-col p-6">
+        <div className="flex min-h-screen flex-col p-6">
 
             <h1 className="text-center text-4xl pb-3">
                 Event Attendee Agreement & Liability Waiver
@@ -202,7 +202,7 @@ export default function Page() {
                 className=" rounded-lg p-4 md:p-8"
             >
                 <div className="waiver-scroll h-125 overflow-y-auto rounded-md border border-gray-800 p-4 md:p-6">
-                    <div className="markdown-content max-w-4xl mx-auto px-4 md:px-8 lg:px-12">
+                    <div className="markdown-waiver-content max-w-4xl mx-auto px-4 md:px-8 lg:px-12">
                         <ReactMarkdown>{markdown}</ReactMarkdown>
                     </div>
                 </div>

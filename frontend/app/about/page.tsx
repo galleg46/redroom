@@ -15,17 +15,23 @@ export default function Page() {
     }, [])
 
     return (
-        <div className="bg-black flex min-h-screen flex-col p-6">
+        <div className="flex min-h-screen flex-col">
 
-            <h1 className="text-center text-4xl pb-3">
+            <h1 className="text-center text-4xl pt-5">
                 About Us
             </h1>
 
             <Paper elevation={8}
-                   sx={{ bgcolor: "black", color: "white" }}
-                   className="rounded-lg p-4 md:p-8"
+                   sx={{
+                       height: "100vh",
+                       backgroundColor: "transparent",
+                       color: "white",
+                       paddingX: "3.25rem",
+                       paddingY: "1rem",
+                   }}
+                   className="rounded-lg md:p-8"
             >
-                <div className="markdown-content">
+                <div className="markdown-redValues-content">
                     <ReactMarkdown>{markdown}</ReactMarkdown>
                 </div>
             </Paper>

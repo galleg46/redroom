@@ -29,14 +29,14 @@ export default function HomePage() {
 
     if (loading) {
         return (
-            <div className="bg-black flex min-h-screen items-center justify-center">
+            <div className="flex min-h-screen items-center justify-center">
                 Loading...
             </div>
         );
     }
 
   return (
-      <main className="bg-black flex min-h-screen flex-col p-6">
+      <main className="flex min-h-screen flex-col p-6">
           <div className="flex flex-col items-center justify-center">
 
               <h1 className="text-center text-4xl pb-3">

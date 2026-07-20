@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./ui/globals.css";
 import Header from "@/app/components/header";
+import {Box} from "@mui/material";
 
 
 const geistSans = Geist({
@@ -29,8 +30,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Header />
-        {children}
+        <Box sx={{
+            minHeight: "100vh",
+            color: "white",
+            backgroundImage: "linear-gradient(#000000 10%, #1a0000 20%, #4a0000 45%, #8b0000 100%)",
+        }}>
+            <Header />
+            {children}
+        </Box>
       </body>
     </html>
   );
