@@ -23,50 +23,55 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.markdown-content {
-
+.markdown-redValues-content h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 2.25rem;
 }
 
-.markdown-content ol {
+.markdown-waiver-content {
+}
+
+.markdown-waiver-content ol {
   list-style-type: decimal !important;
   padding-left: 1.5rem;
 }
 
-.markdown-content ul {
+.markdown-waiver-content ul {
   list-style-type: disc !important;
   padding-left: 1.5rem;
 }
 
-.markdown-content li {
+.markdown-waiver-content li {
   margin-bottom: 0.5rem;
 }
 
-.markdown-content p {
+.markdown-waiver-content p {
   margin-bottom: 1rem;
 }
 
-.markdown-content h1 {
+.markdown-waiver-content h1 {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-.markdown-content h2 {
+.markdown-waiver-content h2 {
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
 }
 
-.markdown-content h3 {
+.markdown-waiver-content h3 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
-.markdown-content ol,
-.markdown-content ul {
+.markdown-waiver-content ol,
+.markdown-waiver-content ul {
   margin: 1rem 0;
   padding-left: 1.5rem;
 }
 
-.markdown-content li {
+.markdown-waiver-content li {
   margin-bottom: 0.5rem;
 }
 

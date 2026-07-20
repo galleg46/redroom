@@ -28,16 +28,16 @@ export default function Page() {
 
     if (loading) {
         return (
-            <div className="bg-black flex min-h-screen items-center justify-center">
+            <div className="flex min-h-screen items-center justify-center">
                 Loading...
             </div>
         );
     }
 
     return (
-        <div className="bg-black flex min-h-screen flex-col p-6">
+        <div className="flex min-h-screen flex-col">
 
-            <h1 className="text-center text-4xl pb-3">
+            <h1 className="text-center text-4xl pt-5">
                 Upcoming Events
             </h1>
 

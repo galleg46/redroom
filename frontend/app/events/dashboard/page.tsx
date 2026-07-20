@@ -415,15 +415,15 @@ export default function Page() {
 
     if (loading) {
         return (
-            <div className="bg-black flex min-h-screen items-center justify-center">
+            <div className="flex min-h-screen items-center justify-center">
                 Loading...
             </div>
         );
     }
 
     return(
-        <div className="bg-black flex min-h-screen flex-col p-6">
-            <h1 className="text-center text-4xl pb-3">
+        <div className="flex min-h-screen flex-col">
+            <h1 className="text-center text-4xl pt-5 pb-5">
                 Event Dashboard
             </h1>
 
@@ -452,7 +452,7 @@ export default function Page() {
                 </Alert>
             </Snackbar>
 
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ backgroundColor: "black"}}>
                 <Table sx={{ minWidth: 650,
                              backgroundColor: "black",
                                 "& .MuiTableCell-root": {
