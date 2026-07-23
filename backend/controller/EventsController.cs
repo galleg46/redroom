@@ -1,6 +1,7 @@
 using backend.exceptions;
 using backend.interfaces;
 using backend.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.controller;
@@ -16,6 +17,7 @@ public class EventsController : ControllerBase
         _eventService = eventService;
     }
     
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<EventResponse>> CreateEvent([FromForm] EventRequest newEventRequest)
     {
@@ -36,7 +38,7 @@ public class EventsController : ControllerBase
             throw;
         }
     }
-
+    
     [HttpGet]
     public async Task<ActionResult<List<Event>>> GetAllEvents()
     {
@@ -67,6 +69,7 @@ public class EventsController : ControllerBase
         }
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteEvent(int id)
     {
@@ -82,6 +85,7 @@ public class EventsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult<EventResponse>> UpdateEvent(long id, UpdateEventRequest request)
     {
