@@ -21,9 +21,8 @@ export default function Page() {
                 About Us
             </h1>
 
-            <Paper elevation={8}
+            <Paper elevation={0}
                    sx={{
-                       height: "100vh",
                        backgroundColor: "transparent",
                        color: "white",
                        paddingX: "3.25rem",
