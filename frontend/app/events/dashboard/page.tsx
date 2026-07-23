@@ -694,6 +694,25 @@ export default function Page() {
                                             )}
                                             />
 
+                                <Controller name="ageRequirement"
+                                            control={control}
+                                            render={({ field }) =>  (
+                                                <FormControl>
+                                                    <FormLabel sx={{ color: "#aaa", "&.Mui-focused": { color: "#aaa"}} }>Age Requirement</FormLabel>
+                                                    <RadioGroup
+                                                        defaultValue="21+"
+                                                        {...field}
+                                                        value={field.value}
+                                                        onChange={(e) => field.onChange(e.target.value)}
+                                                    >
+                                                        <FormControlLabel value="21+" control={ <Radio /> } label="21+" />
+                                                        <FormControlLabel value="18+" control={ <Radio /> } label="18+" />
+                                                        <FormControlLabel value="None" control={ <Radio /> } label="None" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            )}
+                                />
+
                             </Stack>
                         </Grid>
 
@@ -841,19 +860,6 @@ export default function Page() {
                                                 )}
                                     />
                                 </LocalizationProvider>
-
-                                <FormControl>
-                                    <FormLabel sx={{ color: "#aaa", "&.Mui-focused": { color: "#aaa"}} }>Age Requirement</FormLabel>
-                                    <RadioGroup
-                                        defaultValue="21+"
-                                        {...register("ageRequirement")}
-                                    >
-                                        <FormControlLabel value="21+"
-                                                          control={ <Radio /> }
-                                                          label="21+" />
-                                        <FormControlLabel value="18+" control={<Radio />} label="18+" />
-                                    </RadioGroup>
-                                </FormControl>
 
                                 <CustomButton
                                     variant="contained"
