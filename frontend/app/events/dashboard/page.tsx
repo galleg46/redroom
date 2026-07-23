@@ -194,7 +194,7 @@ export default function Page() {
         formData.append("flyer", newEvent.flyer);
 
         try {
-            const response = await fetch(`${API_URL}/events`, {
+            const response = await fetch("/events", {
                 method: "POST",
                 body: formData
             });
@@ -256,7 +256,7 @@ export default function Page() {
 
     const deleteEvent = async (id: number) => {
         try {
-            const response = await fetch(`${API_URL}/events/${id}`, {
+            const response = await fetch(`/events/${id}`, {
                 method: "DELETE"
             });
 
@@ -342,7 +342,7 @@ export default function Page() {
         }
 
         try {
-            const response = await fetch(`${API_URL}/events/${editingEvent.id}`, {
+            const response = await fetch(`/events/${editingEvent.id}`, {
                 method: "PUT",
                 body: formData
             });

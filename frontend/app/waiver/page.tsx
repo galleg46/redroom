@@ -90,7 +90,7 @@ export default function Page() {
 
         try {
 
-            const response = await fetch(`${API_URL}/waiver`, {
+            const response = await fetch("/waiver", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
