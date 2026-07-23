@@ -4,6 +4,7 @@ using backend.models.config;
 using backend.service;
 using Hangfire;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>() ?? [];
 
+// CORS config
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
@@ -33,15 +35,28 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Hangfire config
 builder.Services.AddHangfire(config =>
 {
     config.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddHangfireServer();
 
+// Auth config
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
+        options.Audience = builder.Configuration["Auth0:Audience"];
+    });
+builder.Services.AddAuthorization();
+
+
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.UseHangfireDashboard();
 
