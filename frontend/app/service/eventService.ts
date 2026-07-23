@@ -3,7 +3,7 @@ import { EventResponse } from "@/app/models/EventResponse";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
 export async function getAllEvents(): Promise<EventResponse[]> {
-    const response = await fetch(`${API_URL}/events`);
+    const response = await fetch("/api/events");
 
     if (!response.ok) {
         throw new Error(response.statusText);
@@ -13,7 +13,7 @@ export async function getAllEvents(): Promise<EventResponse[]> {
 }
 
 export async function getUpcomingEvents(numberOfEvents: number ): Promise<EventResponse[]> {
-    const response = await fetch(`${API_URL}/events/upcoming?numberOfEvents=${numberOfEvents}`);
+    const response = await fetch(`/events/upcoming?numberOfEvents=${numberOfEvents}`);
 
     if (!response.ok) {
         throw new Error(response.statusText);
