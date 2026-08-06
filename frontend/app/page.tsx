@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import { EventResponse } from "@/app/models/EventResponse";
 import { getUpcomingEvents } from "@/app/service/eventService";
 import { CustomButton } from "@/app/components/ui/CustomButton";
-import {Card, CardContent, CardMedia, Typography} from "@mui/material";
+import EventCard from "@/app/components/events/EventCard"
 
 export default function HomePage() {
 
@@ -43,26 +43,20 @@ export default function HomePage() {
                   Next up...
               </h1>
 
-
               <div className="pt-4 max-w-7xl mx-auto">
                   {events.map((event) => (
-                      <Card key={event.id} sx={{ backgroundColor: "black" }}>
-                          <CardMedia component="img"
-                                     sx={{
-                                         height: 425,
-                                         objectFit: "cover",
-                                     }}
-                                     image={`data:${event.flyerContentType};base64,${event.flyer}`}
-                          />
-                          <CardContent>
-                              <Typography variant="h6" sx={{ color: "white" }}>
-                                  {new Date(event.eventDate).toLocaleDateString("en-US", {weekday: "short", month: "long", day: "2-digit"})}
-                              </Typography>
-                              <Typography variant="body2" sx={{ color: "white" }}>
-                                  {event.eventLineup}
-                              </Typography>
-                          </CardContent>
-                      </Card>
+                      <EventCard key={event.id}
+                                 id={event.id}
+                                 eventName={event.eventName}
+                                 eventDate={event.eventDate}
+                                 eventLineup={event.eventLineup}
+                                 genres={event.genres}
+                                 eventDescription={event.eventDescription}
+                                 eventPromoter={event.eventPromoter}
+                                 ageRequirement={event.ageRequirement}
+                                 flyer={event.flyer}
+                                 flyerContentType={event.flyerContentType}
+                      />
                   ))}
               </div>
 

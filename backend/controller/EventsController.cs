@@ -66,6 +66,22 @@ public class EventsController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Event>> GetEventById(long id)
+    {
+        try
+        {
+            var response = await _eventService.GetEventById(id);
+
+            return response;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteEvent(int id)

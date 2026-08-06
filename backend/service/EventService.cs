@@ -70,6 +70,13 @@ public class EventService : IEventService
             .ToListAsync();
     }
 
+    public async Task<Event> GetEventById(long id)
+    {
+        var existingEvent = await _dbContext.Events.FindAsync(id);
+        
+        return existingEvent ?? throw new RedRoomEventException($"Event with id {id} not found");
+    }
+
     public async Task<bool> DeleteEvent(int id)
     { 
         var eventToDelete = await _dbContext.Events
