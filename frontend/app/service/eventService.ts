@@ -22,4 +22,14 @@ export async function getUpcomingEvents(numberOfEvents: number ): Promise<EventR
     return await response.json();
 }
 
+export async function getEventById(id: number): Promise<EventResponse> {
+    const response = await fetch(`${API_URL}/events/${id}`);
+
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return await response.json();
+}
+
 export class EventService {}
