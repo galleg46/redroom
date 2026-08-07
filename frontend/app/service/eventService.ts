@@ -32,4 +32,14 @@ export async function getEventById(id: number): Promise<EventResponse> {
     return await response.json();
 }
 
+export async function getPreviousEvents(): Promise<EventResponse[]> {
+    const response = await fetch(`${API_URL}/events/previous`);
+
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return await response.json();
+}
+
 export class EventService {}
