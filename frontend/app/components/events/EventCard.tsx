@@ -3,8 +3,14 @@ import Link from "next/link";
 import { EventResponse } from "@/app/models/EventResponse";
 import {CustomButton} from "@/app/components/ui/CustomButton";
 
-
 export default function EventCard(props: EventResponse) {
+
+    const cutoff = new Date(props.eventDate);
+    cutoff.setDate(cutoff.getDate() + 1);
+    cutoff.setHours(5, 0, 0, 0);
+
+    const isEventFinished = new Date() >= cutoff;
+
     return (
         <Card key={props.id} sx={{ backgroundColor: "black" }}>
             <CardMedia component="img"
@@ -23,7 +29,11 @@ export default function EventCard(props: EventResponse) {
                 </Typography>
             </CardContent>
             <Stack direction="row" spacing={2} sx={{ px: 3, pb: 2, justifyContent: "center" }}>
-                <CustomButton>Buy Tickets</CustomButton>
+                {!isEventFinished && (
+                    <CustomButton>
+                        Buy Tickets
+                    </CustomButton>
+                )}
                 <Link href={`/events/details/${props.id}`}>
                     <CustomButton>More Info</CustomButton>
                 </Link>

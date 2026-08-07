@@ -82,6 +82,21 @@ public class EventsController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet("previous")]
+    public async Task<ActionResult<List<Event>>> GetPreviousEvents()
+    {
+        try
+        {
+            var response = await _eventService.GetPreviousEvents();
+            return response;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteEvent(int id)
