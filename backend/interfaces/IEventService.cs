@@ -8,6 +8,7 @@ public interface IEventService
     Task<EventResponse> CreateEvent(EventRequest newEvent);
     Task<List<Event>> GetEvents();
     Task<List<Event>> GetUpcomingEvents(int numberOfEvents);
+    Task<List<Event>> GetPreviousEvents();
     Task<Event> GetEventById(long eventId);
     Task<bool> DeleteEvent(int id);
     Task<EventResponse> UpdateEvent(long id, UpdateEventRequest request);

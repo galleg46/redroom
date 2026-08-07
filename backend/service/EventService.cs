@@ -77,6 +77,14 @@ public class EventService : IEventService
         return existingEvent ?? throw new RedRoomEventException($"Event with id {id} not found");
     }
 
+    public async Task<List<Event>> GetPreviousEvents()
+    {
+        return await _dbContext.Events
+            .Where(e => e.EventDate.Date.AddDays(1).AddHours(5) <= DateTime.Now)
+            .OrderByDescending(e => e.EventDate)
+            .ToListAsync();
+    }
+
     public async Task<bool> DeleteEvent(int id)
     { 
         var eventToDelete = await _dbContext.Events
