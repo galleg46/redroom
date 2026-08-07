@@ -16,6 +16,12 @@ export default async function Page({ params }: Props) {
 
     const event = await getEventById(eventId);
 
+    const cutoff = new Date(event.eventDate);
+    cutoff.setDate(cutoff.getDate() + 1);
+    cutoff.setHours(5, 0, 0, 0);
+
+    const isEventFinished = new Date() >= cutoff;
+
     return (
             <Box sx={{
                 minHeight: "100vh",
@@ -70,10 +76,11 @@ export default async function Page({ params }: Props) {
                                          objectFit: "contain"
                                      }}
                                 />
-
-                                <CustomButton variant="contained" href="" sx={{ alignSelf: "center", width: "100%", maxWidth: 480}}>
-                                    Buy Tickets
-                                </CustomButton>
+                                {!isEventFinished && (
+                                    <CustomButton variant="contained" href="" sx={{ alignSelf: "center", width: "100%", maxWidth: 480}}>
+                                        Buy Tickets
+                                    </CustomButton>
+                                )}
                             </Stack>
                         </Grid>
                     </Grid>

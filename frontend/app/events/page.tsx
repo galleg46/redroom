@@ -3,19 +3,23 @@
 import { useEffect, useState } from "react";
 
 import { EventResponse } from "@/app/models/EventResponse";
-import { getUpcomingEvents } from "@/app/service/eventService";
+import {getPreviousEvents, getUpcomingEvents} from "@/app/service/eventService";
 import EventCard from "@/app/components/events/EventCard";
 
 export default function Page() {
 
-    const [events, setEvents] = useState<EventResponse[]>([]);
+    const [upcomingEvents, setUpcomingEvents] = useState<EventResponse[]>([]);
+    const [previousEvents, setPreviousEvents] = useState<EventResponse[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadEvents = async () => {
             try {
-                const data = await getUpcomingEvents(3);
-                setEvents(data);
+                const upcomingEventData = await getUpcomingEvents(3);
+                const previousEventData = await getPreviousEvents();
+
+                setUpcomingEvents(upcomingEventData);
+                setPreviousEvents(previousEventData);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -43,7 +47,29 @@ export default function Page() {
 
 
             <div className="flex flex-wrap justify-center gap-6 pt-4 max-w-7xl mx-auto">
-                {events.map((event) => (
+                {upcomingEvents.map((event) => (
+                    <EventCard key={event.id}
+                               id={event.id}
+                               eventName={event.eventName}
+                               eventDate={event.eventDate}
+                               eventLineup={event.eventLineup}
+                               genres={event.genres}
+                               eventDescription={event.eventDescription}
+                               eventPromoter={event.eventPromoter}
+                               ageRequirement={event.ageRequirement}
+                               flyer={event.flyer}
+                               flyerContentType={event.flyerContentType}
+                    />
+                ))}
+            </div>
+
+            <h1 className="text-center text-4xl pt-5">
+                Previous Events
+            </h1>
+
+
+            <div className="flex flex-wrap justify-center gap-6 pt-4 max-w-7xl mx-auto">
+                {previousEvents.map((event) => (
                     <EventCard key={event.id}
                                id={event.id}
                                eventName={event.eventName}
