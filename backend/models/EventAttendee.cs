@@ -8,15 +8,17 @@ public class EventAttendee
     public string LastName  { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
+    public bool ReceiveMessageUpdates { get; set; }
     public DateTime SubmittedAt { get; set; }
     
     public EventAttendee() {}
     
-    public EventAttendee(string firstName, string lastName, string email, string phoneNumber)
+    public EventAttendee(string firstName, string lastName, string email, string phoneNumber, bool receiveMessageUpdates)
     {
         this.FirstName = firstName;
         this.LastName = lastName;
         this.Email = email;
         this.PhoneNumber = phoneNumber;
+        this.ReceiveMessageUpdates = receiveMessageUpdates;
     }
 }

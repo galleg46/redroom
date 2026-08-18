@@ -4,6 +4,7 @@ import "./ui/globals.css";
 import Header from "@/app/components/header";
 import {Box} from "@mui/material";
 import {AppRouterCacheProvider} from "@mui/material-nextjs/v13-appRouter";
+import Footer from "@/app/components/footer";
 
 
 const geistSans = Geist({
@@ -37,6 +38,7 @@ export default function RootLayout({
             }}>
                 <Header/>
                 {children}
+                <Footer/>
             </Box>
         </AppRouterCacheProvider>
         </body>

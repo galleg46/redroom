@@ -95,6 +95,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("ReceiveMessageUpdates")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("SubmittedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
