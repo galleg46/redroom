@@ -23,6 +23,28 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.markdown-waiver-content {
+}
+
+.markdown-privacy-content h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.markdown-privacy-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem;
+}
+
+.markdown-privacy-content li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-privacy-content p {
+  margin-bottom: 1rem;
+}
+
 .markdown-redValues-content h3 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
