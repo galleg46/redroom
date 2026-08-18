@@ -27,7 +27,8 @@ const waiverSchema = z.object({
         error: () => ({
             message: "You must acknowledge and agree to the agreement."
         })
-    })
+    }),
+    receiveMessageUpdates: z.boolean()
 });
 
 const formatPhone = (value: string) => {
@@ -168,7 +169,7 @@ export default function Page() {
         <div className="flex min-h-screen flex-col p-6">
 
             <h1 className="text-center text-4xl pb-3">
-                Event Attendee Agreement & Liability Waiver
+                Consent & Liability Form
             </h1>
 
             <Snackbar open={open}
@@ -208,10 +209,13 @@ export default function Page() {
                 </div>
             </Paper>
 
-            <div className="flex items-center justify-center p-5">
-                <FormControl error={!!errors.agreement}>
+            <div className="flex justify-center p-5">
+                <FormControl error={!!errors.agreement}
+                             className="w-full max-w-3xl"
+                >
                     <FormControlLabel
                         required
+                        className="items-start"
                         control={
                             <Checkbox
                                 {...register("agreement")}
@@ -224,7 +228,38 @@ export default function Page() {
                                 }}
                             />
                         }
-                        label="I have read and acknowledged the Attendee Agreement."
+                        label={
+                        <span className="text-sm">
+                            I have read and acknowledged the Consent & Liability Form.
+                        </span>
+                        }
+                    />
+
+                    <FormControlLabel
+                        sx={{
+                            alignItems: "flex-start"
+                        }}
+                        control={
+                            <Checkbox
+                                {...register("receiveMessageUpdates")}
+                                sx={{
+                                    color: "#B2BAC2",
+
+                                    '&.Mui-checked': {
+                                        color: "#d50000"
+                                    }
+                                }}
+                            />
+                        }
+                        label={
+                            <span className="text-sm">
+                                <b>Important SMS Notice</b>: By opting in to receive text messages
+                                from Red Room, you acknowledge that message frequency may
+                                vary, message and data rates may apply, and you may opt out
+                                at any time by replying STOP. Consent is not a condition
+                                of purchasing goods or services.
+                            </span>
+                        }
                     />
 
                     {errors.agreement && (
@@ -236,7 +271,7 @@ export default function Page() {
 
             </div>
 
-            <div className="flex gap-4 items-center justify-center pt-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4 mb-8">
 
                 <CustomTextField
                     label="First Name"
