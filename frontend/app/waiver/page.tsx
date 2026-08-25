@@ -28,6 +28,11 @@ const waiverSchema = z.object({
             message: "You must acknowledge and agree to the agreement."
         })
     }),
+    authConsent: z.literal(true, {
+        error: () => ({
+            message: "You must agree to receive text messages to use phone verification for account sign-in. "
+        })
+    }),
     receiveMessageUpdates: z.boolean()
 });
 
@@ -210,7 +215,7 @@ export default function Page() {
             </Paper>
 
             <div className="flex justify-center p-5">
-                <FormControl error={!!errors.agreement}
+                <FormControl error={!!errors.agreement || !!errors.authConsent}
                              className="w-full max-w-3xl"
                 >
                     <FormControlLabel
@@ -236,6 +241,32 @@ export default function Page() {
                     />
 
                     <FormControlLabel
+                        required
+                        sx={{
+                            alignItems: "flex-start"
+                        }}
+                        control={
+                            <Checkbox
+                                {...register("authConsent")}
+                                sx={{
+                                    color: "#B2BAC2",
+
+                                    '&.Mui-checked': {
+                                        color: "#d50000"
+                                    }
+                                }}
+                            />
+                        }
+                        label={
+                            <span className="text-sm">
+                                I agree to receive text messages from Red Room for account verification, authentication
+                                codes, and other service-related notifications. Message and data rates apply. Message
+                                frequency varies.
+                            </span>
+                        }
+                    />
+
+                    <FormControlLabel
                         sx={{
                             alignItems: "flex-start"
                         }}
@@ -253,12 +284,9 @@ export default function Page() {
                         }
                         label={
                             <span className="text-sm">
-                                <b>Important SMS Notice</b>: By checking this box, you agree to receive text messages
-                                from Red Room, including one-time passcodes, event announcements, event reminders,
-                                event updates, service-related messages, and promotional messages about Red Room
-                                events and products. Message frequency may vary. Message and data rates may apply.
-                                Consent is not a condition of purchasing goods or services. Reply STOP to opt out and
-                                HELP for help.
+                                I agree to receive promotional text messages from Red Room about upcoming events,
+                                tickets, and promotions. Message and data rates may apply. Message frequency varies.
+                                Consent is not a condition of purchase.
                             </span>
                         }
                     />
@@ -266,6 +294,12 @@ export default function Page() {
                     {errors.agreement && (
                         <p className="flex items-center justify-center text-red-500 text-sm mt-1">
                             {errors.agreement.message}
+                        </p>
+                    )}
+
+                    {errors.authConsent && (
+                        <p className="flex items-center justify-center text-red-500 text-sm mt-1">
+                            {errors.authConsent.message}
                         </p>
                     )}
                 </FormControl>
