@@ -211,7 +211,7 @@ export default function Page() {
             </Paper>
 
             <div className="flex justify-center p-5">
-                <FormControl error={!!errors.agreement}
+                <FormControl error={!!errors.agreement || !!errors.authConsent}
                              className="w-full max-w-3xl"
                 >
                     <FormControlLabel
@@ -233,6 +233,32 @@ export default function Page() {
                         <span className="text-sm">
                             I have read and acknowledged the Consent & Liability Form.
                         </span>
+                        }
+                    />
+
+                    <FormControlLabel
+                        required
+                        sx={{
+                            alignItems: "flex-start"
+                        }}
+                        control={
+                            <Checkbox
+                                {...register("authConsent")}
+                                sx={{
+                                    color: "#B2BAC2",
+
+                                    '&.Mui-checked': {
+                                        color: "#d50000"
+                                    }
+                                }}
+                            />
+                        }
+                        label={
+                            <span className="text-sm">
+                                I agree to receive text messages from Red Room for account verification, authentication
+                                codes, and other service-related notifications. Message and data rates apply. Message
+                                frequency varies.
+                            </span>
                         }
                     />
 
@@ -289,6 +315,12 @@ export default function Page() {
                     {errors.agreement && (
                         <p className="flex items-center justify-center text-red-500 text-sm mt-1">
                             {errors.agreement.message}
+                        </p>
+                    )}
+
+                    {errors.authConsent && (
+                        <p className="flex items-center justify-center text-red-500 text-sm mt-1">
+                            {errors.authConsent.message}
                         </p>
                     )}
                 </FormControl>
