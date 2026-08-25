@@ -211,7 +211,7 @@ export default function Page() {
             </Paper>
 
             <div className="flex justify-center p-5">
-                <FormControl error={!!errors.agreement || !!errors.authConsent}
+                <FormControl error={!!errors.agreement}
                              className="w-full max-w-3xl"
                 >
                     <FormControlLabel
