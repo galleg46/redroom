@@ -28,11 +28,7 @@ const waiverSchema = z.object({
             message: "You must acknowledge and agree to the agreement."
         })
     }),
-    authConsent: z.literal(true, {
-        error: () => ({
-            message: "You must agree to receive text messages to use phone verification for account sign-in. "
-        })
-    }),
+    authSmsConsent: z.boolean(),
     receiveMessageUpdates: z.boolean()
 });
 
@@ -248,6 +244,31 @@ export default function Page() {
                         control={
                             <Checkbox
                                 {...register("authConsent")}
+                                sx={{
+                                    color: "#B2BAC2",
+
+                                    '&.Mui-checked': {
+                                        color: "#d50000"
+                                    }
+                                }}
+                            />
+                        }
+                        label={
+                            <span className="text-sm">
+                                I agree to receive text messages from Red Room for account verification, authentication
+                                codes, and other service-related notifications. Message and data rates apply. Message
+                                frequency varies.
+                            </span>
+                        }
+                    />
+
+                    <FormControlLabel
+                        sx={{
+                            alignItems: "flex-start"
+                        }}
+                        control={
+                            <Checkbox
+                                {...register("authSmsConsent")}
                                 sx={{
                                     color: "#B2BAC2",
 
