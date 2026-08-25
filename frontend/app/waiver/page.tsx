@@ -237,32 +237,6 @@ export default function Page() {
                     />
 
                     <FormControlLabel
-                        required
-                        sx={{
-                            alignItems: "flex-start"
-                        }}
-                        control={
-                            <Checkbox
-                                {...register("authConsent")}
-                                sx={{
-                                    color: "#B2BAC2",
-
-                                    '&.Mui-checked': {
-                                        color: "#d50000"
-                                    }
-                                }}
-                            />
-                        }
-                        label={
-                            <span className="text-sm">
-                                I agree to receive text messages from Red Room for account verification, authentication
-                                codes, and other service-related notifications. Message and data rates apply. Message
-                                frequency varies.
-                            </span>
-                        }
-                    />
-
-                    <FormControlLabel
                         sx={{
                             alignItems: "flex-start"
                         }}
@@ -317,14 +291,7 @@ export default function Page() {
                             {errors.agreement.message}
                         </p>
                     )}
-
-                    {errors.authConsent && (
-                        <p className="flex items-center justify-center text-red-500 text-sm mt-1">
-                            {errors.authConsent.message}
-                        </p>
-                    )}
                 </FormControl>
-
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4 mb-8">
