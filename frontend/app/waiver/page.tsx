@@ -28,11 +28,7 @@ const waiverSchema = z.object({
             message: "You must acknowledge and agree to the agreement."
         })
     }),
-    authConsent: z.literal(true, {
-        error: () => ({
-            message: "You must agree to receive text messages to use phone verification for account sign-in. "
-        })
-    }),
+    authSmsConsent: z.boolean(),
     receiveMessageUpdates: z.boolean()
 });
 
@@ -215,7 +211,7 @@ export default function Page() {
             </Paper>
 
             <div className="flex justify-center p-5">
-                <FormControl error={!!errors.agreement || !!errors.authConsent}
+                <FormControl error={!!errors.agreement}
                              className="w-full max-w-3xl"
                 >
                     <FormControlLabel
@@ -241,13 +237,12 @@ export default function Page() {
                     />
 
                     <FormControlLabel
-                        required
                         sx={{
                             alignItems: "flex-start"
                         }}
                         control={
                             <Checkbox
-                                {...register("authConsent")}
+                                {...register("authSmsConsent")}
                                 sx={{
                                     color: "#B2BAC2",
 
@@ -294,12 +289,6 @@ export default function Page() {
                     {errors.agreement && (
                         <p className="flex items-center justify-center text-red-500 text-sm mt-1">
                             {errors.agreement.message}
-                        </p>
-                    )}
-
-                    {errors.authConsent && (
-                        <p className="flex items-center justify-center text-red-500 text-sm mt-1">
-                            {errors.authConsent.message}
                         </p>
                     )}
                 </FormControl>
