@@ -253,11 +253,12 @@ export default function Page() {
                         }
                         label={
                             <span className="text-sm">
-                                <b>Important SMS Notice</b>: By opting in to receive text messages
-                                from Red Room, you acknowledge that message frequency may
-                                vary, message and data rates may apply, and you may opt out
-                                at any time by replying STOP. Consent is not a condition
-                                of purchasing goods or services.
+                                <b>Important SMS Notice</b>: By checking this box, you agree to receive text messages
+                                from Red Room, including one-time passcodes, event announcements, event reminders,
+                                event updates, service-related messages, and promotional messages about Red Room
+                                events and products. Message frequency may vary. Message and data rates may apply.
+                                Consent is not a condition of purchasing goods or services. Reply STOP to opt out and
+                                HELP for help.
                             </span>
                         }
                     />
