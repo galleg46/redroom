@@ -6,16 +6,28 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import {CustomButton} from "@/app/components/ui/CustomButton";
+import LoginDialog from "@/app/components/auth/LoginDialog";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const navLinks = [
+
         {name: 'Home', link: '/'},
         {name: 'Events', link: '/events'},
         {name: 'About Us', link: '/about'},
         {name: 'Waiver', link: '/waiver'},
     ];
+
+    const handleOpenDialog = () => {
+        setDialogOpen(true);
+    }
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    }
 
     return (
         <header className="bg-black top-0 z-50">
@@ -70,24 +82,46 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    {/* DESKTOP SOCIALS */}
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-4">
-                        <Link href="https://soundcloud.com/red-room-415516372" target="_blank">
-                            <Image
-                                src="/img-assets/SoundCloudIcon.webp"
-                                alt="SoundCloud"
-                                width={48}
-                                height={48}
-                            />
-                        </Link>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end gap-2">
+                        {/* LOGIN BUTTON - TOP ROW */}
+                        <CustomButton
+                            sx={{
+                                background: "transparent",
+                                boxShadow: "none",
+                                border: "none",
+                                color: "white",
+                                minWidth: "auto",
+                                "&:hover": {
+                                    backgroundColor: "transparent",
+                                    boxShadow: "none",
+                                    color: "#b91c1c",
+                                },
+                            }}
+                            onClick={handleOpenDialog}
+                        >Log in
+                        </CustomButton>
 
-                        <Link href="https://www.instagram.com/red_room_ofc/" target="_blank">
-                            <InstagramIcon fontSize="large" />
-                        </Link>
+                        <LoginDialog open={dialogOpen} setDialogOpen={setDialogOpen}/>
 
-                        <Link href="https://www.facebook.com/profile.php?id=61586603220129" target="_blank">
-                            <FacebookIcon fontSize="large" />
-                        </Link>
+                        {/* DESKTOP SOCIAL ICONS - BOTTOM ROW */}
+                        <div className="flex flex-row items-center gap-4">
+                            <Link href="https://soundcloud.com/red-room-415516372" target="_blank">
+                                <Image
+                                    src="/img-assets/SoundCloudIcon.webp"
+                                    alt="SoundCloud"
+                                    width={48}
+                                    height={48}
+                                />
+                            </Link>
+
+                            <Link href="https://www.instagram.com/red_room_ofc/" target="_blank">
+                                <InstagramIcon fontSize="large" />
+                            </Link>
+
+                            <Link href="https://www.facebook.com/profile.php?id=61586603220129" target="_blank">
+                                <FacebookIcon fontSize="large" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
