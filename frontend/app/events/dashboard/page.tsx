@@ -176,7 +176,7 @@ export default function Page() {
     }
 
     const createNewEvent = async (newEvent: any) => {
-        const dateTime = newEvent.eventDate.hour(newEvent.eventTime.hour()).minute(newEvent.eventTime.minute());
+        const dateTime = newEvent.eventDate?.hour(newEvent.eventTime.hour())?.minute(newEvent.eventTime.minute());
 
         const formData = new FormData();
 
@@ -737,6 +737,7 @@ export default function Page() {
                                                                     textField: {
                                                                         error: !!errors.eventDate,
                                                                         helperText: errors.eventDate?.message,
+                                                                        required: true,
                                                                         sx: {
                                                                             // Calendar icon
                                                                             "& .MuiSvgIcon-root": {
@@ -822,6 +823,7 @@ export default function Page() {
                                                         }}
                                                         slotProps={{
                                                             textField: {
+                                                                required: true,
                                                                 sx: {
                                                                     // Clock icon
                                                                     "& .MuiSvgIcon-root": {
