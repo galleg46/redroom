@@ -1,7 +1,6 @@
 "use client";
 
 import {useEffect, useState} from "react";
-
 import { EventResponse } from "@/app/models/EventResponse";
 import { getUpcomingEvents } from "@/app/service/eventService";
 import { CustomButton } from "@/app/components/ui/CustomButton";
@@ -56,10 +55,11 @@ export default function HomePage() {
                                  ageRequirement={event.ageRequirement}
                                  flyer={event.flyer}
                                  flyerContentType={event.flyerContentType}
+                                 ticketLink={event.ticketLink}
                       />
                   ))}
               </div>
-
+              <br/><br/><br/>
               <p>First Time attending an event at Red Room? Please fill out the waiver below.</p>
               <div className="mt-4">
                   <CustomButton variant="contained" href="/waiver">Waiver</CustomButton>
