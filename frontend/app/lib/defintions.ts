@@ -6,4 +6,5 @@ export type Event = {
     lineup: string;
     description: string;
     flyer: string; // image
+    ticketLink: string;
 }
