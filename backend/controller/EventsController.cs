@@ -19,11 +19,6 @@ public class EventsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<EventResponse>> CreateEvent([FromForm] EventRequest newEventRequest)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        
         try
         {
             var response = await _eventService.CreateEvent(newEventRequest);

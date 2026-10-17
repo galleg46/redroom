@@ -66,6 +66,10 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("text[]");
 
+                    b.Property<string>("TicketLink")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Events");

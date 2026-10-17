@@ -13,11 +13,13 @@ public class Event
     public string AgeRequirement { get; set; }
     public byte[] Flyer { get; set; }
     public string FlyerContentType { get; set; }
+    public string TicketLink { get; set; }
     
     public Event() {}
 
     public Event(string eventName, DateTime eventDate, string eventDescription, List<string> eventLineup,
-        string eventPromoter, List<string> genres, string ageRequirement, byte[] flyer, string flyerContentType)
+        string eventPromoter, List<string> genres, string ageRequirement, byte[] flyer, string flyerContentType, 
+        string ticketLink)
     {
         EventName = eventName;
         EventDate = eventDate;
@@ -28,5 +30,6 @@ public class Event
         AgeRequirement = ageRequirement;
         Flyer = flyer;
         FlyerContentType = flyerContentType;
+        TicketLink = ticketLink;
     }
 }

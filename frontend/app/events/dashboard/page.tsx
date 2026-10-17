@@ -1,10 +1,10 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState} from "react";
+import { ChangeEvent, useEffect, useState, useMemo} from "react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import RichTextEditor from "@/app/components/ui/RichTextEditor";
 import {
     Paper,
     TableContainer,
@@ -13,6 +13,7 @@ import {
     TableRow,
     TableBody,
     TableCell,
+    TableSortLabel,
     Stack,
     IconButton, Fab,
     Dialog, CardMedia, CardContent, Typography, Card, DialogContent, Autocomplete, RadioGroup, FormControl,
@@ -34,6 +35,7 @@ import { getAllEvents } from "@/app/service/eventService";
 import {CustomTextField} from "@/app/components/ui/CustomTextField";
 import {CustomButton} from "@/app/components/ui/CustomButton";
 import dayjs, { Dayjs } from "dayjs";
+import sanitize from "sanitize-html";
 
 const createEventSchema = z.object({
     eventName: z.string().min(1, "Event Name is required"),
@@ -44,7 +46,8 @@ const createEventSchema = z.object({
     eventDate: z.custom<Dayjs | null>(),
     eventTime: z.custom<Dayjs | null>(),
     ageRequirement: z.string().optional(),
-    flyer: z.file().max(10 * 1024 * 1024).refine(file => file.type.startsWith("image/"), "File must be an image").optional()
+    flyer: z.file().max(10 * 1024 * 1024).refine(file => file.type.startsWith("image/"), "File must be an image").optional(),
+    ticketLink: z.string().optional(),
 })
 
 export default function Page() {
@@ -64,7 +67,8 @@ export default function Page() {
             eventGenres: [],
             eventDescription: "",
             eventDate: null,
-            eventTime: null
+            eventTime: null,
+            ticketLink: ""
         }
     });
 
@@ -77,6 +81,9 @@ export default function Page() {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertSeverity, setAlertSeverity] = useState<"success" | "error" | "warning" | "info">("info");
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+    type SortField = "eventName" | "eventDate";
+    const [sortField, setSortField] = useState<SortField>("eventDate");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
     const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
     useEffect(() => {
@@ -117,7 +124,8 @@ export default function Page() {
             eventDescription: "",
             eventDate: null,
             eventTime: null,
-            ageRequirement: "21+"
+            ageRequirement: "21+",
+            ticketLink: "",
         });
 
         setImagePreviewUrl(null);
@@ -136,7 +144,8 @@ export default function Page() {
             eventDescription: "",
             eventDate: null,
             eventTime: null,
-            ageRequirement: "21+"
+            ageRequirement: "21+",
+            ticketLink: "",
         });
 
         setImagePreviewUrl(null);
@@ -153,7 +162,8 @@ export default function Page() {
             eventDescription: event.eventDescription ?? "",
             eventDate: dayjs(event.eventDate),
             eventTime: dayjs(event.eventDate),
-            ageRequirement: event.ageRequirement
+            ageRequirement: event.ageRequirement,
+            ticketLink: event.ticketLink
         });
 
         setImagePreviewUrl(
@@ -176,7 +186,7 @@ export default function Page() {
     }
 
     const createNewEvent = async (newEvent: any) => {
-        const dateTime = newEvent.eventDate.hour(newEvent.eventTime.hour()).minute(newEvent.eventTime.minute());
+        const dateTime = newEvent.eventDate?.hour(newEvent.eventTime.hour())?.minute(newEvent.eventTime.minute());
 
         const formData = new FormData();
 
@@ -192,6 +202,7 @@ export default function Page() {
         );
         formData.append("ageRequirement", newEvent.ageRequirement);
         formData.append("flyer", newEvent.flyer);
+        formData.append("ticketLink", newEvent.ticketLink);
 
         try {
             const response = await fetch(`${API_URL}/events`, {
@@ -336,6 +347,7 @@ export default function Page() {
             formData.append("Genres", genre)
         );
         formData.append("ageRequirement", existingEvent.ageRequirement);
+        formData.append("ticketLink", existingEvent.ticketLink);
 
         if (existingEvent.flyer instanceof File) {
             formData.append("flyer", existingEvent.flyer);
@@ -412,6 +424,37 @@ export default function Page() {
         setImagePreviewUrl(URL.createObjectURL(file));
     }
 
+    const sortedEvents = useMemo(() => {
+        return [...events].sort((a, b) => {
+            let comparison: number;
+
+            if (sortField === "eventName") {
+                comparison = a.eventName.localeCompare(b.eventName, undefined, {
+                    sensitivity: "base",
+                    numeric: true,
+                });
+            } else {
+                comparison =
+                    new Date(a.eventDate).getTime() -
+                    new Date(b.eventDate).getTime();
+            }
+
+            return sortDirection === "asc" ? comparison : -comparison;
+        });
+    }, [events, sortField, sortDirection]);
+
+// ADD: Change sorting field or reverse the current direction
+    const handleSort = (field: SortField) => {
+        if (sortField === field) {
+            setSortDirection((current) =>
+                current === "asc" ? "desc" : "asc"
+            );
+        } else {
+            setSortField(field);
+            setSortDirection("asc");
+        }
+    };
+
 
     if (loading) {
         return (
@@ -462,8 +505,35 @@ export default function Page() {
                              }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Name</TableCell>
-                            <TableCell align="center">Date & Time</TableCell>
+                            <TableCell align="center">
+                                <TableSortLabel
+                                    active={sortField === "eventName"}
+                                    direction={sortField === "eventName" ? sortDirection : "asc"}
+                                    onClick={() => handleSort("eventName")}
+                                    sx={{
+                                        color: "white",
+                                        "&:hover": { color: "#ff4d4d" },
+                                        "&.Mui-active": { color: "red" },
+                                        "& .MuiTableSortLabel-icon": { color: "red !important" },
+                                    }}
+                                >
+                                    Name
+                                </TableSortLabel>
+                            </TableCell>
+                                <TableCell align="center"><TableSortLabel
+                                    active={sortField === "eventDate"}
+                                    direction={sortField === "eventDate" ? sortDirection : "asc"}
+                                    onClick={() => handleSort("eventDate")}
+                                    sx={{
+                                        color: "white",
+                                        "&:hover": { color: "#ff4d4d" },
+                                        "&.Mui-active": { color: "red" },
+                                        "& .MuiTableSortLabel-icon": { color: "red !important" },
+                                    }}
+                                >
+                                    Date & Time
+                                </TableSortLabel>
+                            </TableCell>
                             <TableCell align="center">Description</TableCell>
                             <TableCell align="center">Lineup</TableCell>
                             <TableCell align="center">Promoter</TableCell>
@@ -474,11 +544,11 @@ export default function Page() {
                     </TableHead>
 
                     <TableBody>
-                        {events.map((event) => (
+                        {sortedEvents.map((event) => (
                             <TableRow key={event.id}>
                                 <TableCell align="center">{event.eventName}</TableCell>
                                 <TableCell align="center">{new Date(event.eventDate).toLocaleString()}</TableCell>
-                                <TableCell align="center">{event.eventDescription}</TableCell>
+                                <TableCell align="center">{sanitize(event.eventDescription ?? "", {allowedTags: [], allowedAttributes: {}}).slice(0, 100)}...</TableCell>
                                 <TableCell align="center">{event.eventLineup.join(", ")}</TableCell>
                                 <TableCell align="center">{event.eventPromoter}</TableCell>
                                 <TableCell align="center">{event.genres.join(", ")}</TableCell>
@@ -694,23 +764,35 @@ export default function Page() {
                                             )}
                                             />
 
-                                <Controller name="ageRequirement"
-                                            control={control}
-                                            render={({ field }) =>  (
-                                                <FormControl>
-                                                    <FormLabel sx={{ color: "#aaa", "&.Mui-focused": { color: "#aaa"}} }>Age Requirement</FormLabel>
-                                                    <RadioGroup
-                                                        defaultValue="21+"
-                                                        {...field}
-                                                        value={field.value}
-                                                        onChange={(e) => field.onChange(e.target.value)}
-                                                    >
-                                                        <FormControlLabel value="21+" control={ <Radio /> } label="21+" />
-                                                        <FormControlLabel value="18+" control={ <Radio /> } label="18+" />
-                                                        <FormControlLabel value="None" control={ <Radio /> } label="None" />
-                                                    </RadioGroup>
-                                                </FormControl>
+                                <Controller
+                                    name="eventDescription"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <Box sx={{ width: "100% " }}>
+                                            <Typography
+                                                variant="subtitle1"
+                                                sx={{ mb: 1 }}
+                                            >
+                                                Event Description
+                                            </Typography>
+
+                                            <RichTextEditor
+                                                value={field.value ?? ""}
+                                                onChange={field.onChange}
+                                                placeholder="Describe the event, lineup, and other details..."
+                                            />
+
+                                            {fieldState.error && (
+                                                <Typography
+                                                    variant="caption"
+                                                    color="error"
+                                                    sx={{ mt: 0.5, display: "block" }}
+                                                >
+                                                    {fieldState.error.message}
+                                                </Typography>
                                             )}
+                                        </Box>
+                                    )}
                                 />
 
                             </Stack>
@@ -718,12 +800,11 @@ export default function Page() {
 
                         <Grid size={{ xs: 12, md: 4}}  sx={{ paddingTop: 4}}>
                             <Stack spacing={2}>
+
                                 <CustomTextField
-                                    label="Description"
-                                    {...register("eventDescription")}
+                                    label="Ticket Link"
+                                    {...register("ticketLink")}
                                     variant="outlined"
-                                    multiline
-                                    minRows={6}
                                 />
 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -731,12 +812,15 @@ export default function Page() {
                                                 control={control}
                                                 render={({ field }) =>  (
                                                     <DatePicker label="Date"
+                                                                views={["month", "day"]}
+                                                                openTo="day"
                                                                 value={field.value}
                                                                 onChange={field.onChange}
                                                                 slotProps={{
                                                                     textField: {
                                                                         error: !!errors.eventDate,
                                                                         helperText: errors.eventDate?.message,
+                                                                        required: true,
                                                                         sx: {
                                                                             // Calendar icon
                                                                             "& .MuiSvgIcon-root": {
@@ -822,6 +906,7 @@ export default function Page() {
                                                         }}
                                                         slotProps={{
                                                             textField: {
+                                                                required: true,
                                                                 sx: {
                                                                     // Clock icon
                                                                     "& .MuiSvgIcon-root": {
@@ -860,6 +945,25 @@ export default function Page() {
                                                 )}
                                     />
                                 </LocalizationProvider>
+
+                                <Controller name="ageRequirement"
+                                            control={control}
+                                            render={({ field }) =>  (
+                                                <FormControl>
+                                                    <FormLabel sx={{ color: "#aaa", "&.Mui-focused": { color: "#aaa"}} }>Age Requirement</FormLabel>
+                                                    <RadioGroup
+                                                        defaultValue="21+"
+                                                        {...field}
+                                                        value={field.value}
+                                                        onChange={(e) => field.onChange(e.target.value)}
+                                                    >
+                                                        <FormControlLabel value="21+" control={ <Radio /> } label="21+" />
+                                                        <FormControlLabel value="18+" control={ <Radio /> } label="18+" />
+                                                        <FormControlLabel value="None" control={ <Radio /> } label="None" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            )}
+                                />
 
                                 <CustomButton
                                     variant="contained"

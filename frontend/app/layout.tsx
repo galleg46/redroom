@@ -37,7 +37,9 @@ export default function RootLayout({
                 backgroundImage: "linear-gradient(#000000 10%, #1a0000 20%, #4a0000 45%, #8b0000 100%)",
             }}>
                 <Header/>
-                {children}
+                <Box component="main" sx={{ flex: 1, pb: 6 }}>
+                    {children}
+                </Box>
                 <Footer/>
             </Box>
         </AppRouterCacheProvider>

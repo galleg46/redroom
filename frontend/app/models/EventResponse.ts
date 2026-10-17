@@ -9,4 +9,5 @@ export interface EventResponse {
     ageRequirement: string;
     flyer: string;
     flyerContentType: string;
+    ticketLink: string;
 }

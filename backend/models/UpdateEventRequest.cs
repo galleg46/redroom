@@ -4,17 +4,18 @@ public class UpdateEventRequest
 {
     public string EventName { get; set; }
     public DateTime EventDate { get; set; }
-    public string EventDescription { get; set; }
-    public List<string> EventLineup { get; set; }
-    public string EventPromoter { get; set; }
-    public List<string> Genres { get; set; }
+    public string? EventDescription { get; set; }
+    public List<string> EventLineup { get; set; } = [];
+    public string? EventPromoter { get; set; }
+    public List<string> Genres { get; set; } = [];
     public string AgeRequirement { get; set; }
     public IFormFile? Flyer { get; set; }
+    public string? TicketLink { get; set; }
 
     public UpdateEventRequest(){}
 
     public UpdateEventRequest(string eventName, DateTime eventDate, string eventDescription, List<string> eventLineup,
-        string eventPromoter, List<string> genres, string ageRequirement, IFormFile? flyer)
+        string eventPromoter, List<string> genres, string ageRequirement, IFormFile? flyer,  string ticketLink)
     {
         EventName = eventName;
         EventDate = eventDate;
@@ -24,6 +25,7 @@ public class UpdateEventRequest
         Genres = genres;
         AgeRequirement = ageRequirement;
         Flyer = flyer;
+        TicketLink = ticketLink;
     }
 
 }

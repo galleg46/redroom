@@ -41,13 +41,14 @@ public class EventService : IEventService
         {
             EventName = request.EventName,
             EventDate = request.EventDate,
-            EventDescription = request.EventDescription,
-            EventLineup = request.EventLineup,
-            EventPromoter = request.EventPromoter,
-            Genres = request.Genres,
+            EventDescription = request.EventDescription ?? "",
+            EventLineup = request.EventLineup ?? [],
+            EventPromoter = request.EventPromoter ?? "",
+            Genres = request.Genres ?? [],
             AgeRequirement = request.AgeRequirement,
             Flyer = imageBytes,
-            FlyerContentType = request.Flyer.ContentType
+            FlyerContentType = request.Flyer.ContentType,
+            TicketLink = request.TicketLink ?? ""
         };
 
         _dbContext.Events.Add(e);
@@ -105,11 +106,12 @@ public class EventService : IEventService
 
         existingEvent.EventName = request.EventName;
         existingEvent.EventDate = request.EventDate;
-        existingEvent.EventDescription = request.EventDescription;
-        existingEvent.EventLineup = request.EventLineup;
-        existingEvent.EventPromoter = request.EventPromoter;
-        existingEvent.Genres = request.Genres;
+        existingEvent.EventDescription = request.EventDescription ?? "";
+        existingEvent.EventLineup = request.EventLineup ?? [];
+        existingEvent.EventPromoter = request.EventPromoter ?? "";
+        existingEvent.Genres = request.Genres ?? [];
         existingEvent.AgeRequirement = request.AgeRequirement;
+        existingEvent.TicketLink = request.TicketLink ?? "";
 
         if (request.Flyer != null)
         {
