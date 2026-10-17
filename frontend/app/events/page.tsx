@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Grow from "@mui/material/Grow";
 
 import { EventResponse } from "@/app/models/EventResponse";
 import {getPreviousEvents, getUpcomingEvents} from "@/app/service/eventService";
@@ -47,19 +48,28 @@ export default function Page() {
 
 
             <div className="flex flex-wrap justify-center gap-6 pt-4 max-w-7xl mx-auto">
-                {upcomingEvents.map((event) => (
-                    <EventCard key={event.id}
-                               id={event.id}
-                               eventName={event.eventName}
-                               eventDate={event.eventDate}
-                               eventLineup={event.eventLineup}
-                               genres={event.genres}
-                               eventDescription={event.eventDescription}
-                               eventPromoter={event.eventPromoter}
-                               ageRequirement={event.ageRequirement}
-                               flyer={event.flyer}
-                               flyerContentType={event.flyerContentType}
-                    />
+                {upcomingEvents.map((event, index) => (
+                    <Grow
+                        key={event.id}
+                        in={true}
+                        timeout={500}
+                    >
+                        <div>
+                            <EventCard key={event.id}
+                                   id={event.id}
+                                   eventName={event.eventName}
+                                   eventDate={event.eventDate}
+                                   eventLineup={event.eventLineup}
+                                   genres={event.genres}
+                                   eventDescription={event.eventDescription}
+                                   eventPromoter={event.eventPromoter}
+                                   ageRequirement={event.ageRequirement}
+                                   flyer={event.flyer}
+                                   flyerContentType={event.flyerContentType}
+                                   ticketLink={event.ticketLink}
+                            />
+                        </div>
+                    </Grow>
                 ))}
             </div>
 
@@ -81,6 +91,7 @@ export default function Page() {
                                ageRequirement={event.ageRequirement}
                                flyer={event.flyer}
                                flyerContentType={event.flyerContentType}
+                               ticketLink={event.ticketLink}
                     />
                 ))}
             </div>
