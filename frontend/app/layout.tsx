@@ -1,20 +1,15 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import { Orbitron } from "next/font/google";
 import "./ui/globals.css";
 import Header from "@/app/components/header";
 import {Box} from "@mui/material";
 import {AppRouterCacheProvider} from "@mui/material-nextjs/v13-appRouter";
 import Footer from "@/app/components/footer";
 
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const orbitron = Orbitron({
+    variable: "--font-orbitron",
     subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+    display: "swap"
 });
 
 export const metadata: Metadata = {
@@ -29,7 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="bg-black">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${orbitron.variable} antialiased`}>
         <AppRouterCacheProvider>
             <Box sx={{
                 minHeight: "100vh",
