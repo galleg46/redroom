@@ -1,15 +1,15 @@
 "use client";
 
 import { styled } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
 import Button, { ButtonProps } from "@mui/material/Button";
 
 type CustomButtonProps = ButtonProps<"a">;
 
-export const CustomButton = styled(Button)<CustomButtonProps>(({ theme }) => ({
-    color: theme.palette.getContrastText(red["A700"]),
-    backgroundColor: red["A700"],
+export const CustomButton = styled(Button)<CustomButtonProps>(
+    ({ theme }) => ({
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
     '&:hover': {
-        backgroundColor: red[900],
+        backgroundColor: theme.palette.primary.dark,
     }
 }));
