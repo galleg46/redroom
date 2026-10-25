@@ -67,6 +67,16 @@ export default function Page(){
                         }
                     }}
                     sx={{
+                        "& .MuiOutlinedInput-root": {
+                            fontFamily: "Arial, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: 1.6,
+                        },
+                        "& .MuiInputBase-input::placeholder": {
+                            fontFamily: "Arial, sans-serif",
+                            fontSize: "14px",
+                            opacity: 1,
+                        },
                         "& .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#555",
                         },
@@ -75,19 +85,28 @@ export default function Page(){
                         },
                         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#999",
-                        },
+                        }
                     }}
                 />
             </div>
 
             <TableContainer component={Paper} sx={{ backgroundColor: "black"}}>
-                <Table sx={{ minWidth: 650,
-                            backgroundColor: "black",
-                                "& .MuiTableCell-root": {
-                                    color: "white",
-                                    borderColor: "#333"
-                                }
-                            }}>
+                <Table sx={{
+                    minWidth: 650,
+                    backgroundColor: "black",
+                    fontFamily: "Arial, sans-serif",
+                    "& .MuiTableCell-root": {
+                        color: "white",
+                        borderColor: "#333",
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                    },
+                    "& .MuiTableHead-root .MuiTableCell-root": {
+                        fontWeight: 700,
+                        fontSize: "15px",
+                    }
+                }}>
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">First Name</TableCell>

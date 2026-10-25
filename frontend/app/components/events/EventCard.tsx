@@ -14,7 +14,7 @@ export default function EventCard(props: EventResponse) {
 
     return (
         <Grow in={true} timeout={500}>
-            <Card key={props.id} sx={{ backgroundColor: "black" }}>
+            <Card key={props.id} elevation={0} sx={{ backgroundColor: "black" }}>
                 <CardMedia component="img"
                            sx={{
                                height: 425,

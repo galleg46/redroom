@@ -199,7 +199,7 @@ export default function Page() {
             </Snackbar>
 
             <Paper
-                elevation={8}
+                elevation={0}
                 sx={{ bgcolor: "black", color: "white" }}
                 className=" rounded-lg p-4 md:p-8"
             >
@@ -230,7 +230,12 @@ export default function Page() {
                             />
                         }
                         label={
-                        <span className="text-sm">
+                        <span style={{
+                            fontFamily: "Arial, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: 1.6,
+                            color: "#FFFFFF",
+                        }}>
                             I have read and acknowledged the Consent & Liability Form.
                         </span>
                         }
@@ -253,7 +258,12 @@ export default function Page() {
                             />
                         }
                         label={
-                            <span className="text-sm">
+                            <span style={{
+                                fontFamily: "Arial, sans-serif",
+                                fontSize: "14px",
+                                lineHeight: 1.6,
+                                color: "#FFFFFF",
+                            }}>
                                 I agree to receive text messages from Red Room for account verification, authentication
                                 codes, and other service-related notifications. Message and data rates apply. Message
                                 frequency varies.
@@ -278,7 +288,12 @@ export default function Page() {
                             />
                         }
                         label={
-                            <span className="text-sm">
+                            <span style={{
+                                fontFamily: "Arial, sans-serif",
+                                fontSize: "14px",
+                                lineHeight: 1.6,
+                                color: "#FFFFFF",
+                            }}>
                                 I agree to receive promotional text messages from Red Room about upcoming events,
                                 tickets, and promotions. Message and data rates may apply. Message frequency varies.
                                 Consent is not a condition of purchase.

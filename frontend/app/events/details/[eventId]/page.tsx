@@ -31,7 +31,7 @@ export default async function Page({ params }: Props) {
                 paddingBottom: 6
             }}
             >
-                <Paper elevation={2}
+                <Paper elevation={0}
                        sx={{
                            color: "white",
                            backgroundColor: "black",
