@@ -443,7 +443,7 @@ export default function Page() {
         });
     }, [events, sortField, sortDirection]);
 
-// ADD: Change sorting field or reverse the current direction
+// Change sorting field or reverse the current direction
     const handleSort = (field: SortField) => {
         if (sortField === field) {
             setSortDirection((current) =>
@@ -496,13 +496,22 @@ export default function Page() {
             </Snackbar>
 
             <TableContainer component={Paper} sx={{ backgroundColor: "black"}}>
-                <Table sx={{ minWidth: 650,
-                             backgroundColor: "black",
-                                "& .MuiTableCell-root": {
-                                    color: "white",
-                                    borderColor: "#333",
-                                }
-                             }}>
+                <Table sx={{
+                    minWidth: 650,
+                    backgroundColor: "black",
+                    fontFamily: "Arial, sans-serif",
+                    "& .MuiTableCell-root": {
+                        color: "white",
+                        borderColor: "#333",
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                    },
+                    "& .MuiTableHead-root .MuiTableCell-root": {
+                        fontWeight: 700,
+                        fontSize: "15px",
+                    }
+                }}>
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">

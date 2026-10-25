@@ -24,7 +24,7 @@ export default function Header() {
                 {/* MOBILE TOP ROW */}
                 <div className="flex items-center justify-between md:hidden">
                     <Link href="/">
-                        <Image src="/RedRoom.svg" alt="Red Room Logo" width={150} height={150} />
+                        <Image src="/redroom/logo/RedRoom.svg" alt="Red Room Logo" width={150} height={150} />
                     </Link>
 
                     <button
@@ -60,7 +60,7 @@ export default function Header() {
                     {/* DESKTOP LOGO */}
                     <div className="flex justify-center">
                         <Link href="/">
-                            <Image src="/RedRoom.svg" alt="Red Room Logo" width={150} height={150} />
+                            <Image src="/redroom/logo/RedRoom.svg" alt="Red Room Logo" width={150} height={150} />
                         </Link>
                     </div>
 

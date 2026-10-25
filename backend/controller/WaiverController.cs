@@ -35,6 +35,22 @@ public class WaiverController : ControllerBase
             return Conflict(e.Message);
         }
     }
+
+    [HttpGet]
+    public async Task<ActionResult<List<EventAttendee>>> GetAllAttendees()
+    {
+        try
+        {
+            var response = await _waiverService.GetAllAttendees();
+            return response;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
+    }
     
     [HttpGet("ping")]
     public string Ping()
