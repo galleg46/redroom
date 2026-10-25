@@ -14,6 +14,9 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
     title: "Red Room",
+    icons: {
+      icon: "/redroom/favicon/RRFavicon.svg"
+    },
     description: "",
 };
 
