@@ -443,7 +443,7 @@ export default function Page() {
         });
     }, [events, sortField, sortDirection]);
 
-// ADD: Change sorting field or reverse the current direction
+// Change sorting field or reverse the current direction
     const handleSort = (field: SortField) => {
         if (sortField === field) {
             setSortDirection((current) =>
