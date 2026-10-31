@@ -6,4 +6,5 @@ public interface IWaiverService
 {
     Task<AgreementResponse> CreateAgreement(EventAttendee attendee);
     Task<List<EventAttendee>> GetAllAttendees();
+    Task<EventAttendee> GetAttendeeById(long attendeeId);
 }
