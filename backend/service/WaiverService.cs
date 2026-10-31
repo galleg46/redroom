@@ -43,6 +43,11 @@ public class WaiverService : IWaiverService
         return await _dbContext.EventAttendees.ToListAsync();
     }
 
+    public async Task<EventAttendee> GetAttendeeById(long attendeeId)
+    {
+        return await _dbContext.EventAttendees.FindAsync(attendeeId);
+    }
+
     private static bool IsAttendeeInfoComplete(EventAttendee attendee)
     {
         return !(attendee.FirstName == "" || attendee.LastName == "" || attendee.Email == "" ||

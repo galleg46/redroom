@@ -45,10 +45,18 @@ app.UseCors("CorsPolicy");
 app.MapControllers();
 app.UseHangfireDashboard();
 
-RecurringJob.AddOrUpdate<EventReminderService>("email-invite", 
-    service => service.SendEventReminders(), 
+RecurringJob.AddOrUpdate<EventReminderService>("queue-email-invite", 
+    service => service.QueueEventReminders(), 
     Cron.Daily(12, 45),
     new RecurringJobOptions
+    {
+        TimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Chicago")
+    });
+
+RecurringJob.AddOrUpdate<EventReminderService>("send-email-invite",
+    service => service.SendEventReminders(),
+    Cron.MinuteInterval(1),
+    new RecurringJobOptions()
     {
         TimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Chicago")
     });
