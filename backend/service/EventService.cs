@@ -65,7 +65,7 @@ public class EventService : IEventService
     public async Task<List<Event>> GetUpcomingEvents(int numberOfEvents)
     {
         return await _dbContext.Events
-            .Where(e => e.EventDate >= DateTime.Now)
+            .Where(e => e.EventDate.Date.AddDays(1).AddHours(5) >= DateTime.Now)
             .OrderBy(e => e.EventDate)
             .Take(numberOfEvents)
             .ToListAsync();

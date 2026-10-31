@@ -111,9 +111,9 @@ export default function Page(){
                         <TableRow>
                             <TableCell align="center">First Name</TableCell>
                             <TableCell align="center">Last Name</TableCell>
+                            <TableCell align="center">Submitted At</TableCell>
                             <TableCell align="center">Email</TableCell>
                             <TableCell align="center">Phone Number</TableCell>
-                            <TableCell align="center">Submitted At</TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -129,9 +129,9 @@ export default function Page(){
                                 <TableRow key={attendee.id}>
                                     <TableCell align="center">{attendee.firstName}</TableCell>
                                     <TableCell align="center">{attendee.lastName}</TableCell>
+                                    <TableCell align="center">{new Date(attendee.submittedAt).toLocaleString()}</TableCell>
                                     <TableCell align="center">{attendee.email}</TableCell>
                                     <TableCell align="center">{attendee.phoneNumber}</TableCell>
-                                    <TableCell align="center">{new Date(attendee.submittedAt).toLocaleString()}</TableCell>
                                 </TableRow>
                             ))
                         ) : (

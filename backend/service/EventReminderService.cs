@@ -24,7 +24,9 @@ public class EventReminderService : IEventReminderService
     public async Task SendEventReminders()
     {
         var nextEvent = await _eventService.GetUpcomingEvents(1);
-        if (nextEvent[0].EventDate.Date == DateTime.Today.Date)
+        var eventCutoff =  nextEvent[0].EventDate.Date.AddDays(1).AddHours(5);
+        
+        if (DateTime.Today.Date <  eventCutoff)
         {   
             var eventAttendees = await GetQueuedNotifications(nextEvent[0].Id);
             if (eventAttendees.Count == 0)
