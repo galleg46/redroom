@@ -114,6 +114,31 @@ namespace backend.Migrations
 
                     b.ToTable("EventAttendees");
                 });
+
+            modelBuilder.Entity("backend.models.EventNotifications", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AttendeeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("EmailNotificationSent")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("EventId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId", "AttendeeId")
+                        .IsUnique();
+
+                    b.ToTable("EventNotifications");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -7,6 +7,7 @@ public class AppDbContext : DbContext
 {
     public DbSet<EventAttendee> EventAttendees { get; set; }
     public DbSet<Event> Events { get; set; }
+    public DbSet<EventNotifications> EventNotifications { get; set; }
     
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
@@ -25,5 +26,9 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Event>()
             .Property(e => e.EventDate)
             .HasColumnType("timestamp without time zone");
+
+        modelBuilder.Entity<EventNotifications>()
+            .HasIndex(e => new { e.EventId, e.AttendeeId })
+            .IsUnique();
     }
 }
