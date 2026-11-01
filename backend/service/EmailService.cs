@@ -40,7 +40,7 @@ public class EmailService : IEmailService
 
                                   <p>&#x1F534;&#x1F4A1;Look for the red light @ 1529 E Saveland Ave. Milwaukee, WI 53207&#x1F4A1;&#x1F534;</p>
 
-                                  <p>&#x1F6AA;If you didn't pay in advance, $10 at door (Cash ONLY). Enter/exit on the LEFT SIDE door of the building. FRONT DOOR WILL BE LOCKED. NO ID = NO ENTRY.&#x1F6AA;</p>
+                                  <p>&#x1F6AA;If you didn't pay in advance, $15 at door (Cash ONLY). Enter/exit on the LEFT SIDE door of the building. FRONT DOOR WILL BE LOCKED. NO ID = NO ENTRY.&#x1F6AA;</p>
 
                                   <p>&#x1F559;10:00 PM till late&#x1F305;</p>
 
