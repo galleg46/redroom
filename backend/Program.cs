@@ -47,7 +47,7 @@ app.UseHangfireDashboard();
 
 RecurringJob.AddOrUpdate<EventReminderService>("queue-email-invite", 
     service => service.QueueEventReminders(), 
-    Cron.Daily(12, 45),
+    Cron.Daily(12, 00),
     new RecurringJobOptions
     {
         TimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Chicago")
