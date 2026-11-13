@@ -45,7 +45,7 @@ jobs:
         run: dotnet build backend.csproj --configuration Release --no-restore
 
       - name: Install EF CLI
-        run: dotnet tool install --global dotnet-ef --version 9.0.X
+        run: dotnet tool install --global dotnet-ef --version 9.0.4
 
       - name: Add EF to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
