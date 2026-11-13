@@ -37,6 +37,9 @@ namespace backend.Migrations
                                     RETURN NEW;
                                  END;
                                  $$ LANGUAGE plpgsql;
+                                 
+                                 DROP TRIGGER IF EXISTS trg_new_event_attendee_notification
+                                 ON "EventAttendees";
 
                                  CREATE TRIGGER trg_new_event_attendee_notification
                                  AFTER INSERT on "EventAttendees"
