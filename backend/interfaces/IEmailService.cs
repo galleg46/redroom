@@ -2,5 +2,5 @@ namespace backend.interfaces;
 
 public interface IEmailService
 {
-    Task SendEventReminderEmailAsync(string recipient, string eventName, DateTime eventDate);
+    Task SendEventReminderEmailAsync(string recipient, string eventName, DateTime eventDate, string ticketLink);
 }

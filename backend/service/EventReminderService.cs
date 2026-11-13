@@ -26,7 +26,7 @@ public class EventReminderService : IEventReminderService
         var nextEvent = await _eventService.GetUpcomingEvents(1);
         var eventCutoff =  nextEvent[0].EventDate.Date.AddDays(1).AddHours(5);
         
-        if (DateTime.Today.Date <  eventCutoff)
+        if (DateTime.Today.Date < eventCutoff)
         {   
             var eventAttendees = await GetQueuedNotifications(nextEvent[0].Id);
             if (eventAttendees.Count == 0)
@@ -40,7 +40,8 @@ public class EventReminderService : IEventReminderService
                     var attendeeInfo = await _waiverService.GetAttendeeById(attendee.AttendeeId);
                     await _emailService.SendEventReminderEmailAsync(attendeeInfo.Email, 
                         nextEvent[0].EventName, 
-                        nextEvent[0].EventDate);
+                        nextEvent[0].EventDate,
+                        nextEvent[0].TicketLink);
                     attendee.EmailNotificationSent = true;
                     _dbcontext.EventNotifications.Update(attendee);
                     
